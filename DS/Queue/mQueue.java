@@ -10,9 +10,9 @@ public class mQueue <T>{
 		head = new mNode<>();
 		tail = new mNode<>();
 		size = 0;
-		
-		head.next = tail;
+
 		head.prev = null;
+		head.next = tail;
 		tail.prev = head;
 		tail.next = null;
 	}
@@ -51,6 +51,13 @@ public class mQueue <T>{
 
 	public boolean isEmpty(){
 		return head.next == tail;
+	}
+
+	public mNode getHead(){
+		return head;
+	}
+	public mNode getTail(){
+		return tail;
 	}
 	
 	private class mNode<T>{
