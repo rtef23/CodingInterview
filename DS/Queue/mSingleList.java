@@ -33,6 +33,19 @@ public class mSingleList <T>{
 			
 		size++;
 	}
+	public mNode<T> getNthNode(int n){
+		/*
+		 * from head return the n th node
+		 * */
+		int cnt = 1;
+		
+		for(mNode<T> n1 = head.getNext();n1 != null;n1 = n1.getNext()){
+			if(cnt == n)
+				return n1;
+			cnt++;
+		}
+		return null;
+	}
 	public mNode<T> getHead(){
 		return head;
 	}
