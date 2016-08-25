@@ -1,4 +1,5 @@
 package Queue;
+import Node.mNode;
 
 public class mDeQueue <T>{
 	mNode head;
@@ -11,10 +12,10 @@ public class mDeQueue <T>{
 		tail = new mNode<>();
 		size = 0;
 		
-		head.prev = null;
-		head.next = tail;
-		tail.prev = head;
-		tail.next = null;
+		head.setPrev(null);
+		head.setNext(tail);
+		tail.setPrev(head);
+		tail.setNext(null);
 	}
 	
 	public int Size(){
@@ -24,34 +25,36 @@ public class mDeQueue <T>{
 	public void pushAtHead(T val){
 		mNode<T> new_node = new mNode<>();
 		
-		new_node.val = val;
-		new_node.prev = head;
-		new_node.next = head.next;
-		head.next.prev = new_node;
-		head.next = new_node;
+		new_node.setVal(val);
+		new_node.setPrev(head);
+		new_node.setNext(head.getNext());
+		
+		head.getNext().setPrev(new_node);
+		head.setNext(new_node);
 		size++;
 	}
 	
 	public void pushAtTail(T val){
 		mNode<T> new_node = new mNode<>();
+
+		new_node.setVal(val);
+		new_node.setPrev(tail.getPrev());
+		new_node.setNext(tail);
 		
-		new_node.val = val;
-		new_node.prev = tail.prev;
-		new_node.next = tail;
-		tail.prev.next = new_node;
-		tail.prev = new_node;
+		tail.getPrev().setNext(new_node);
+		tail.setPrev(new_node);
 		size++;
 	}
 	
 	public T popFromHead(){
 		if(isEmpty())
 			return null;
-		mNode<T> rem_node = head.next;
+		mNode<T> rem_node = head.getNext();
 		
-		head.next = rem_node.next;
-		rem_node.next.prev = head;
+		head.setNext(rem_node.getNext());
+		rem_node.getNext().setPrev(head);
 		size--;
-		return (T)rem_node.val;
+		return (T)rem_node.getVal();
 	}
 	
 	public T popFromTail(){
@@ -59,31 +62,25 @@ public class mDeQueue <T>{
 			return null;
 		mNode<T> rem_node = new mNode<>();
 		
-		tail.prev = rem_node.prev;
-		rem_node.prev.next = tail;
+		tail.setPrev(rem_node.getPrev());
+		rem_node.getPrev().setNext(tail);
 		size--;
-		return (T)rem_node.val;
+		return (T)rem_node.getVal();
 	}
 	
 	public T peekAtHead(){
 		if(isEmpty())
 			return null;
-		return (T)head.next.val;
+		return (T)head.getNext().getVal();
 	}
 	
 	public T peekAtTail(){
 		if(isEmpty())
 			return null;
-		return (T)tail.prev.val;
+		return (T)tail.getPrev().getVal();
 	}
 
 	public boolean isEmpty(){
-		return head.next == tail;
-	}
-	
-	private class mNode<T>{
-		T val;
-		mNode prev;
-		mNode next;
+		return head.getNext() == tail;
 	}
 }

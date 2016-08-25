@@ -1,5 +1,7 @@
 package Queue;
 
+import Node.mNode;
+
 public class mQueue <T>{
 	mNode head;
 	mNode tail;
@@ -11,10 +13,10 @@ public class mQueue <T>{
 		tail = new mNode<>();
 		size = 0;
 
-		head.prev = null;
-		head.next = tail;
-		tail.prev = head;
-		tail.next = null;
+		head.setPrev(null);
+		head.setNext(tail);
+		tail.setPrev(head);
+		tail.setNext(null);
 	}
 	
 	public int Size(){
@@ -24,33 +26,34 @@ public class mQueue <T>{
 	public void enqueue(T val){
 		mNode new_node = new mNode<>();
 		
-		new_node.val = val;
-		new_node.next = head.next;
-		new_node.prev = head;
-		head.next.prev = new_node;
-		head.next = new_node;
+		new_node.setVal(val);
+		new_node.setNext(head.getNext());
+		new_node.setPrev(head);
+		
+		head.getNext().setPrev(new_node);
+		head.setNext(new_node);
 		size++;
 	}
 	
 	public T dequeue(){
 		if(isEmpty())
 			return null;
-		mNode rem_node = tail.prev;
+		mNode rem_node = tail.getPrev();
 		
-		rem_node.prev.next = tail;
-		tail.prev = rem_node.prev;
+		rem_node.getPrev().setNext(tail);
+		tail.setPrev(rem_node.getPrev());;
 		size--;
-		return (T)rem_node.val;
+		return (T)rem_node.getVal();
 	}
 	
 	public T peek(){
 		if(isEmpty())
 			return null;
-		return (T)tail.prev.val;
+		return (T)tail.getPrev().getVal();
 	}
 
 	public boolean isEmpty(){
-		return head.next == tail;
+		return head.getNext() == tail;
 	}
 
 	public mNode getHead(){
@@ -60,9 +63,4 @@ public class mQueue <T>{
 		return tail;
 	}
 	
-	private class mNode<T>{
-		T val;
-		mNode prev;
-		mNode next;
-	}
 }

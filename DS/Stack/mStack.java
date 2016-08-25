@@ -1,5 +1,7 @@
 package Stack;
 
+import Node.mNode;
+
 public class mStack <T>{
 	private mNode head;
 	private int size;
@@ -15,9 +17,9 @@ public class mStack <T>{
 	
 	public void push(T val){
 		mNode new_node = new mNode<>();
-		
-		new_node.val = val;
-		new_node.next = head;
+
+		new_node.setVal(val);
+		new_node.setNext(head);
 		head = new_node; 
 		size++;
 	}
@@ -28,15 +30,15 @@ public class mStack <T>{
 		
 		mNode<T> rem_node = head;
 		
-		head = rem_node.next;
+		head = rem_node.getNext();
 		size--;
-		return rem_node.val;
+		return rem_node.getVal();
 	}
 	
 	public T peek(){
 		if(isEmpty())
 			return null;
-		return (T)head.val;
+		return (T)head.getVal();
 	}
 	
 	public boolean isEmpty(){
@@ -47,8 +49,4 @@ public class mStack <T>{
 		return head;
 	}
 	
-	private class mNode<T>{
-		T val;
-		mNode next;
-	}
 }
