@@ -1,8 +1,9 @@
-package Queue;
+package Solutions;
 
 import java.util.Scanner;
 
 import Node.mNode;
+import Queue.mSingleList;
 
 public class removeNthNode {
 	/*
